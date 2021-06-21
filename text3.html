@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+
+        #box {
+            width: 350px;
+            height: 350px;
+            border: 1px solid #000;
+            position: relative;
+        }
+
+        #small {
+            position: absolute;
+
+        }
+        #small img{
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        #big {
+            width: 500px;
+            height: 500px;
+            border: 1px solid #000;
+            position: absolute;
+            left: 560px;
+            top: 0;
+            overflow: hidden;
+            display: none;
+        }
+        #mask {
+            width: 100px;
+            height: 100px;
+            background-color: rgba(255,255,0,0.5);
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: none;
+        }
+        #bigImg {
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+
+<div id="box">
+    <div id="small">
+        <img src="images/lianyiqunSmall1.jpg"/>
+        <div id="mask"></div>
+    </div>
+
+    <div id="big">
+        <img src="images/lianyiqunBig1.jpg" id="bigImg"/>
+    </div>
+
+</div>
+
+</body>
+<script type="text/javascript">
+
+    var small = document.getElementById("small");
+    var mask = document.getElementById("mask");
+    var big = document.getElementById("big");
+    var bigImg = document.getElementById("bigImg");
+
+    small.onmouseover=function () {
+        mask.style.display="block";
+        big.style.display="block";
+    }
+    small.onmouseout=function () {
+        mask.style.display="none";
+        big.style.display="none";
+    }
+    small.onmousemove=function (e) {
+        let maskX=e.pageX-mask.offsetWidth/2;
+        let maskY=e.pageY-mask.offsetHeight/2;
+        if (maskX<0){
+            maskX=0;
+        }else if (maskX>small.offsetWidth-mask.offsetWidth){
+            maskX=small.offsetWidth-mask.offsetWidth;
+        }
+        if (maskY<0){
+            maskY=0;
+        }else if (maskY>small.offsetHeight-mask.offsetHeight){
+            maskY=small.offsetHeight-mask.offsetHeight;
+        }
+        mask.style.left=maskX+'px';
+        mask.style.top=maskY+'px';
+        let maskMove=small.offsetWidth-mask.offsetWidth;
+        let bigMove=bigImg.offsetWidth-big.offsetWidth;
+        let sca=bigMove/maskMove;
+        bigImg.style.left=-(sca*maskX)+'px';
+        bigImg.style.top=-(sca*maskY)+'px';
+    }
+</script>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        input{
+            float: left;
+            margin: 10px;
+            width: 50px;
+        }
+    </style>
+</head>
+<body>
+<input type="button" value="春"></input>
+<input type="button" value="夏"></input>
+<input type="button" value="秋"></input>
+<input type="button" value="冬"></input><br><br>
+<img src="images/春夏秋冬_00.jpg" height="450" width="800" id="imgs"/></body>
+<script>
+    window.onload=function () {
+        // var btns=document.getElementsByTagName('input');
+        // for(var i=0;i<btns.length;i++){
+        //     btns[i].onclick=(function (id) {
+        //         return function () {
+        //             document.getElementById('imgs').src="image1/春夏秋冬_0"+id+".jpg";
+        //         }
+        //     })(i);
+        // }
+        // console.log("sss");
+        // var arr=[1,8,99,555,48,126];
+        // for(var i=0;i<arr.length;i++){
+        //     for(var j=i+1;j<arr.length;j++){
+        //         if(arr[i]>arr[j]){
+        //             var value=arr[i];
+        //             arr[i]=arr[j];
+        //             arr[j]=value;
+        //         }
+        //     }
+        // }
+        // console.log(arr);
+        var arr = [[5,7,8,6,4],[3,4,2,6,5],[2,1,4,5,3],[5,4,3,7,6],[8,9,5,7,6]]
+
+        function changeArr(){
+            for (var i=0;i<arr.length;i++){
+                for (var j=0;j<arr.length;j++){
+                    for (var k=j;k<arr.length-1;k++){
+                        if(arr[i][j]>arr[i][k+1]){
+                            [arr[i][j],arr[i][k+1]]=[arr[i][k+1],arr[i][j]];
+                        }
+                    }
+                }
+            }
+            for (var i=0;i<arr.length;i++){
+                for (var j=i;j<arr.length-1;j++){
+                    if (arr[i][0]>arr[j+1][0]){
+                        // var value=arr[i];
+                        // arr[i]=arr[j+1];
+                        // arr[j+1]=value;
+                        [arr[i],arr[j+1]]=[arr[j+1],arr[i]]
+                    }
+                }
+            }
+        }
+        var arr = [
+            [5, 7, 8, 6, 4],
+            [3, 4, 2, 6, 5],
+            [2, 1, 4, 5, 3],
+            [5, 4, 3, 7, 6],
+            [8, 9, 5, 7, 6]
+        ]
+        for (k = 0; k < arr.length; k++) {
+            for (i = 0; i < arr.length; i++) {
+                for (j = i; j < arr.length - 1; j++) {
+                    if (arr[k][i] > arr[k][j + 1]) {
+                        let a = arr[k][i]
+                        arr[k][i] = arr[k][j + 1]
+                        arr[k][j + 1] = a
+                    }
+                }
+            }
+        }
+        console.log(arr);
+        for(i=0;i<arr.length;i++){
+            for(j=i;j<arr.length-1;j++){
+                if(arr[i][0]>arr[j+1][0]){
+                    let a = arr[i]
+                    arr[i]=arr[j+1]
+                    arr[j+1]=a
+                }
+            }
+        }
+        console.log(arr)
+        changeArr();
+
+//下面用于数组数据显示，请勿修改
+        for(var i = 0;i < arr.length; i++){
+            for(var u = 0;u < arr[i].length; u++){
+                if(u == 0){
+                    var str = "<div style='margin-left:150px;font-size:45px'>";
+                }
+                str += arr[i][u]+"     ";
+                if(u == 4){
+                    str += "</div>";
+                    document.write(str);
+                }
+            }
+        }
+    }
+    
+
+</script>
+</html>

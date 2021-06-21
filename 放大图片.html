@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+
+        /*#box{*/
+        /*    width: 400px;*/
+        /*    position: relative;*/
+        /*    margin: 100px;*/
+        /*}*/
+        /*#small{*/
+        /*    width: 400px;*/
+        /*    height: 400px;*/
+        /*}*/
+        /*#small img{*/
+        /*    width: 100%;*/
+        /*    height: 100%;*/
+        /*}*/
+        /*#mask{*/
+        /*    position: absolute;*/
+        /*    left: 0;*/
+        /*    top: 0;*/
+        /*    width: 200px;*/
+        /*    height: 200px;*/
+        /*    background: aliceblue;*/
+        /*    opacity: 0.8;*/
+        /*    display: none;*/
+        /*}*/
+        /*#big{*/
+        /*    width: 400px;*/
+        /*    height: 400px;*/
+        /*    position: absolute;*/
+        /*    right: -620px;*/
+        /*    top: 0;*/
+        /*    overflow: hidden;*/
+        /*    display: none;*/
+        /*}*/
+        /*#big img{*/
+        /*    position: absolute;*/
+        /*    left: 0;*/
+        /*    top: 0;*/
+        /*}*/
+        /*#small:hover #mask{*/
+        /*    display: block;*/
+        /*}*/
+        /*#small:hover+ #big{*/
+        /*    display: block;*/
+        /*}*/
+        #box {
+            width: 350px;
+            height: 350px;
+            border: 1px solid #000;
+            position: relative;
+        }
+
+        #small {
+            position: absolute;
+
+        }
+        #small img{
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        #big {
+            width: 500px;
+            height: 500px;
+            border: 1px solid #000;
+            position: absolute;
+            left: 560px;
+            top: 0;
+            overflow: hidden;
+            display: none;
+        }
+        #mask {
+            width: 100px;
+            height: 100px;
+            background-color: rgba(255,255,0,0.5);
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: none;
+        }
+        #bigimg {
+            position: absolute;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="box">
+        <div id="small" >
+            <img src="images/lianyiqunSmall1.jpg" alt="small"/>
+            <div id="mask"></div>
+        </div>
+        <div id="big">
+            <img src="images/lianyiqunBig1.jpg" id="bigimg" alt="big"/>
+        </div>
+    </div>
+</body>
+<script>
+    let small=document.getElementById('small');
+    let mask=document.getElementById('mask');
+    let big=document.getElementById('big');
+    let bigimg=document.getElementById('bigimg');
+    small.onmouseover=function(){
+        mask.style.display='block';
+        big.style.display='block';
+    }
+    small.onmouseout=function(){
+        mask.style.display='none';
+        big.style.display='none';
+    }
+    small.onmousemove=function (e) {
+        let maskx=e.pageX-mask.offsetWidth/2;
+        let masky=e.pageY-mask.offsetHeight/2;
+        if (maskx<0){
+            maskx=0;
+        }else if (maskx>small.offsetWidth-mask.offsetWidth){
+            maskx=small.offsetWidth-mask.offsetWidth;
+        }
+        if (masky<0){
+            masky=0;
+        }else if (masky>small.offsetHeight-mask.offsetHeight) {
+            masky = small.offsetHeight - mask.offsetHeight;
+        }
+        mask.style.left=maskx+'px';
+        mask.style.top=masky+'px';
+        let smallmove=small.offsetWidth-mask.offsetWidth;
+        let bigmove=bigimg.offsetWidth-big.offsetWidth;
+        let scr=bigmove/smallmove;
+        bigimg.style.left=-(scr*maskx)+'px';
+        bigimg.style.top=-(scr*masky)+'px';
+    }
+    // var small=document.getElementById('small');
+    // var smallleft=Math.round(small.getBoundingClientRect().left+document.documentElement.scrollLeft);
+    // var smalltop=Math.round(small.getBoundingClientRect().top+document.documentElement.scrollTop);
+    // var mask=document.getElementById('mask');
+    // small.onmousemove=function (e) {
+    //     var maskX=mask.offsetWidth;
+    //     var maskY=mask.offsetHeight;
+    //     var x=e.pageX-smallleft;
+    //     var y=e.pageY-smalltop;
+    //     mask.style.left=x-maskX/2+'px';
+    //     mask.style.top=y-maskY/2+'px';
+    //     if (parseInt(mask.style.left)<0){
+    //         mask.style.left=0;
+    //     }else if (parseInt(mask.style.left)>small.offsetWidth-maskX){
+    //         mask.style.left=small.offsetWidth-maskX+'px';
+    //     }
+    //     if (parseInt(mask.style.top)<0){
+    //         mask.style.top=0;
+    //     }else if (parseInt(mask.style.top)>small.offsetHeight-maskY){
+    //         mask.style.top=small.offsetHeight-maskY+'px';
+    //     }
+    //     var scr=small.offsetWidth/mask.offsetWidth;
+    //     // var big=document.getElementById('big');
+    //     var img=document.getElementById('bigimg');
+    //     img.style.left=-(scr*parseInt(mask.style.left))+'px';
+    //     img.style.top=-(scr*parseInt(mask.style.top))+'px';
+    // }
+</script>
+</html>
